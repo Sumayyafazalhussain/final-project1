@@ -13,8 +13,11 @@ type Product = {
 
 const WishlistPage: React.FC = () => {
   const [wishlist, setWishlist] = React.useState<Product[]>(() => {
-    const savedWishlist = localStorage.getItem("wishlist");
-    return savedWishlist ? JSON.parse(savedWishlist) : [];
+    if (typeof window !== "undefined") {
+      const savedWishlist = localStorage.getItem("wishlist");
+      return savedWishlist ? JSON.parse(savedWishlist) : [];
+    }
+    return [];
   });
 
   const removeFromWishlist = (productId: string) => {
